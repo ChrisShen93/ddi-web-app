@@ -61,6 +61,14 @@
     <meta name="theme-color" content="#ffffff">
     <!--favico end -->
     <base href="/Tools/omicsdi/">
+
+    <style>
+        #login {
+            position: absolute;
+            top: 10px;
+            right: 30px;
+        }
+    </style>
 </head>
 
 <body class="level2 ng-cloak">
@@ -83,7 +91,12 @@
         <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
         <!-- /local-search -->
 
-
+        <div id="login" ng-controller="LoginCtl">
+            <div id="fbLogin" onclick="">Facebook</div>
+            <button ng-click="authenticate('facebook')">Sign in with Facebook</button>
+            <!--<div ng-click="getCode()">getCode</div>-->
+            <!--<a href="https://www.facebook.com/dialog/oauth?client_id=1139710409407100&redirect_uri=http://localhost:8000/Tools/omicsdi">login facebook</a>-->
+        </div>
         <!-- local-nav -->
         <nav style="float:bottom">
             <ul class="grid_24" id="local-nav">
@@ -299,7 +312,7 @@
 
 </script>
 
-<script src="bower_components/jquery/jquery-1.10.1.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/underscore/underscore-min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -308,6 +321,8 @@
 <script src="bower_components/angular/ngprogress.min.js"></script>
 <script src="bower_components/angular/autocomplete.js"></script>
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.2.js"></script>
+
+<script src="bower_components/satellizer/satellizer.min.js"></script>
 
 <script src="app/app.js"></script>
 <script src="js/DDIService.js"></script>
@@ -319,6 +334,76 @@
 <script src="js/DDICheckCtl.js"></script>
 <!--
 -->
+<!--<script src="js/DDILoginService.js"></script>-->
+<!--<script src="js/DDILoginCtrl.js"></script>-->
+<script src="js/LoginCtrl.js"></script>
+<script src="js/loginFB.js"></script>
+
+<script>
+    $(function () {
+        var user_name;
+        var user_id;
+        var access_Token;
+
+        if(window.location.href.indexOf("code") !== -1) {
+            var start = window.location.href.indexOf("code=") + 5;
+            var end = window.location.href.indexOf("#/_=_");
+            var code = window.location.href.substring(start, end);
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:9091/signin/getCode",
+                data: "code=" + code,
+                async: false,
+                success: function (data) {
+                    if(data !== undefined && data !== null) {
+                        user_name = data.name;
+                        user_id = data.id + "@facebook";
+                        access_Token = data.access_token;
+
+                        $("#fbLogin").text(user_name);
+
+                    }
+                }
+            });
+
+//            $.get("http://localhost:9091/signin/getCode", {code: code}, function (data) {
+//                if(data !== undefined && data !== null) {
+//                    user_name = data.name;
+//                    user_id = data.id + "@facebook";
+//                    access_Token = data.access_token;
+//
+//                    $("#fbLogin").text(user_name);
+//
+//                }
+//            });
+        }
+        console.log("user_name: " + user_name);
+
+        if(user_name !== undefined && user_name !== null) {
+            $("#fbLogin").text(user_name);
+        }
+
+        //use access token
+//        if(window.location.hash.length > 3) {
+//            var hash = window.location.hash;
+//            var start = window.location.hash.indexOf("access_token=") + 13;
+//            var end = window.location.hash.indexOf("&expires_in");
+//            var code = hash.substring(start, end);
+//            console.log(code);
+//
+//            $.get("http://localhost:9091/signin/getCode", {code: code}, function (data) {
+//                console.log(data);
+//                var jsonObj = jQuery.parseJSON(data);
+//                console.log(jsonObj.name);
+//            });
+//        }
+
+        $('#fbLogin').click(function () {
+            fbLogin();
+        });
+    })
+</script>
 
 
 <script src="js/DDIGetTweets.js"></script>

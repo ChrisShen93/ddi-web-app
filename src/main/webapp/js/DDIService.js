@@ -91,7 +91,9 @@ angular.module('ddiApp').service('results', ['_','$http', '$location', '$window'
         '&size={PAGESIZE}' +
         '&sortfield={SORTFIELD}' +
         '&order={ORDER}' +
-        '&start={START}',
+        '&start={START}' +
+        '&userId=190828274629964' +
+        '&accessToken=EAAQMj4IZAenwBALCjI1cbGIGBRagz7DOoKZCC7kd0LZB33ew1j5wB3NopxFGRzxVgVL7mbqsdylN62xe8EdxlsQxZAl3vNk1cOZCFoU6OSIUnJTmyTSMoj65jWbxN1dNj1zARYhgZBj4PXIegP6JWLPVL55aqj5PUZD',
 
         'proxy': search_config.ddi_base_url +
         '/api/internal/ebeye?url={EBEYE_URL}',

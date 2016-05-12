@@ -55,7 +55,7 @@ underscore.factory('_', function () {
 
 
 
-var ddiApp = angular.module('ddiApp',['underscore','ngRoute','ngAnimate', 'autocomplete', 'ngCookies', 'ngProgress','ui.bootstrap', 'slick']);
+var ddiApp = angular.module('ddiApp',['underscore','ngRoute','ngAnimate', 'autocomplete', 'ngCookies', 'ngProgress','ui.bootstrap', 'slick', 'satellizer']);
 
 // $.getJSON('http://api.metabolomexchange.org/providers', function(data) {
 //     for (var i in data) {
@@ -78,7 +78,7 @@ var ddiApp = angular.module('ddiApp',['underscore','ngRoute','ngAnimate', 'autoc
 /**
  * ANGLULAR CONFIG
  **/
-ddiApp.config(function($routeProvider) {
+ddiApp.config(['$routeProvider', '$authProvider', function($routeProvider, $authProvider) {
     $routeProvider.
     when('/about', { templateUrl: 'app/views/about.html', controller: 'MainContentCtrl' }).
     when('/api', { templateUrl: 'app/views/api.html', controller: 'MainContentCtrl' }).
@@ -93,7 +93,14 @@ ddiApp.config(function($routeProvider) {
     when('/check', {templateUrl: 'app/views/check.html', controller: 'MainContentCtrl'}).
     otherwise({ templateUrl: 'app/views/home.html', controller: 'MainContentCtrl' });
 
-});
+    $authProvider.facebook({
+        clientId: '1139710409407100',
+        redirectUri: 'http://localhost:8000/Tools/omicsdi',
+        url: 'http://localhost:8000/Tools/omicsdi'
+    });
+
+    // $locationProvider.html5Mode(true);
+}]);
 /* ----------------------------*/
 
 /**
