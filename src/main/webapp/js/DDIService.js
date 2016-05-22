@@ -93,7 +93,7 @@ angular.module('ddiApp').service('results', ['_','$http', '$location', '$window'
         '&order={ORDER}' +
         '&start={START}' +
         '&userId=190828274629964' +
-        '&accessToken=EAAQMj4IZAenwBALCjI1cbGIGBRagz7DOoKZCC7kd0LZB33ew1j5wB3NopxFGRzxVgVL7mbqsdylN62xe8EdxlsQxZAl3vNk1cOZCFoU6OSIUnJTmyTSMoj65jWbxN1dNj1zARYhgZBj4PXIegP6JWLPVL55aqj5PUZD',
+        '&accessToken=EAAQMj4IZAenwBAL6qcBZCALBezgJpoifkJ6yd07yGbDSC95j1v3s8ScRz0UPaqZC0lI5XlPsK1ttyT1EDbNzHZCML4n28BHWy6cLe86RrlC8ycahZCYW5xSnZA8HSZAZBfAUT0tvsTZBeLPllYp0q0y17R2vR7NCgWZCZANqCWIOcoHSgZDZD',
 
         'proxy': search_config.ddi_base_url +
         '/api/internal/ebeye?url={EBEYE_URL}',
@@ -160,8 +160,7 @@ angular.module('ddiApp').service('results', ['_','$http', '$location', '$window'
             var newSortField = sort_field;
             if (newSortField === "relevance") {
                 newSortField = ""
-            }
-            ;
+            };
 
             var ebeye_url = query_urls.ebeye_search.replace('{QUERY}', query).replace('{START}', start).replace('{PAGESIZE}', page_size).replace('{SORTFIELD}', newSortField).replace('{ORDER}', sort_order);
             console.log(ebeye_url);

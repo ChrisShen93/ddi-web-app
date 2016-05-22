@@ -68,6 +68,20 @@
             top: 10px;
             right: 30px;
         }
+
+        #facebook:hover {
+            color: #103480;
+        }
+        #twitter:hover {
+            color: #1da1f2;
+        }
+        #google:hover {
+            color: #DC4B38;
+        }
+        #linkedin:hover {
+            color: #008cc8;
+        }
+
     </style>
 </head>
 
@@ -92,11 +106,17 @@
         <!-- /local-search -->
 
         <div id="login" ng-controller="LoginCtl">
-            <div id="fbLogin" onclick="">Facebook</div>
+            <div id="fbLogin" onclick="">
+                <i id="facebook" class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+                <i id="twitter" class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+                <i id="google" class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
+                <i id="linkedin" class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+            </div>
             <button ng-click="authenticate('facebook')">Sign in with Facebook</button>
             <!--<div ng-click="getCode()">getCode</div>-->
             <!--<a href="https://www.facebook.com/dialog/oauth?client_id=1139710409407100&redirect_uri=http://localhost:8000/Tools/omicsdi">login facebook</a>-->
         </div>
+
         <!-- local-nav -->
         <nav style="float:bottom">
             <ul class="grid_24" id="local-nav">
@@ -322,7 +342,7 @@
 <script src="bower_components/angular/autocomplete.js"></script>
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.2.js"></script>
 
-<script src="bower_components/satellizer/satellizer.min.js"></script>
+<script src="bower_components/satellizer/satellizer.js"></script>
 
 <script src="app/app.js"></script>
 <script src="js/DDIService.js"></script>
@@ -341,6 +361,7 @@
 
 <script>
     $(function () {
+
         var user_name;
         var user_id;
         var access_Token;
@@ -366,17 +387,6 @@
                     }
                 }
             });
-
-//            $.get("http://localhost:9091/signin/getCode", {code: code}, function (data) {
-//                if(data !== undefined && data !== null) {
-//                    user_name = data.name;
-//                    user_id = data.id + "@facebook";
-//                    access_Token = data.access_token;
-//
-//                    $("#fbLogin").text(user_name);
-//
-//                }
-//            });
         }
         console.log("user_name: " + user_name);
 

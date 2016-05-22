@@ -13,7 +13,7 @@ function fbLogin() {
     var query = queryParams.join('&');
     var url = path + query;
     window.location.replace(url);
-    
+
 }
 
 function getUrlParam(name) {
