@@ -93,10 +93,10 @@ ddiApp.config(['$routeProvider', '$authProvider', function($routeProvider, $auth
     when('/check', {templateUrl: 'app/views/check.html', controller: 'MainContentCtrl'}).
     otherwise({ templateUrl: 'app/views/home.html', controller: 'MainContentCtrl' });
 
-    $authProvider.facebook({
-        clientId: '1139710409407100',
-        redirectUri: 'http://localhost:8000/Tools/omicsdi',
-        url: 'http://localhost:8000/Tools/omicsdi'
+    $authProvider.github({
+        clientId: '2a2e68940ee81396ace5',
+        redirectUri: window.location.origin + '/Tools/omicsdi',
+        url: 'http://localhost:9091/signin/github'
     });
 
     // $locationProvider.html5Mode(true);

@@ -2,7 +2,7 @@
  * Created by chris on 16-5-3.
  */
 
-angular.module('ddiApp').factory('LoginSer', ['$http', '$location', function ($http, $location) {
+angular.module('ddiApp').factory('LoginSer', ['$http', '$location', '$window', function ($http, $location, $window) {
 
     return {
         getCode: function () {
@@ -20,6 +20,10 @@ angular.module('ddiApp').factory('LoginSer', ['$http', '$location', function ($h
         },
         getUserId: function (userId) {
             return userId;
+        },
+
+        authenticate: function (provider) {
+            $window.open("https://github.com/login/oauth/authorize?response_type=code&client_id=2a2e68940ee81396ace5&redirect_uri=http://localhost:8000/Tools/omicsdi&scope=user:email", provider, "width=1020, height=618");
         }
     };
 }]);

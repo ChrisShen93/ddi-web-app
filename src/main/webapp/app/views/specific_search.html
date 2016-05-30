@@ -1,0 +1,493 @@
+<script >
+    document.title = "OmicsDI Browse";
+</script>
+
+
+
+<div id="content" ng-controller="SpecificSearchCtrl" class="ng-scope ng-cloak"  style="margin: 10px">
+
+
+    <div id="count_show" class="ng-cloak" style="height: 30px;">
+        <h3>
+            <span  class="" style="">
+                <span id="metasearch-results-count" class="ng-binding ng-scope">{{count}}</span>
+                <i class="fa fa-search"></i>Datasets Totally
+            </span>
+        </h3>
+    </div>
+    <div ng-show="true" style="">
+
+        <!-- facets column -->
+        <div class="hidden-xs metasearch-facets">
+            <div class = "row">
+
+             <div class="col-md-3 col-sm-3" > <!-- Omic types -->
+                 <h4 ng-bind="query_for_show"></h4>
+
+                 <input type="text" class="form-control input-block" ng-model="repos_input"
+                        placeholder="Keywords">
+                 <span ng-repeat="checkedFacet in checkedFacets">
+                     <h4>{{checkedFacet.label}}:</h4>
+                     <span ng-repeat="checkedTerm in checkedFacet.checkedTerms">{{checkedTerms.label}}
+                         <img src="img/omics/Proteomics2.png" style="vertical-align: top" ng-click="removeTerm(checkedFacet, checkedTerm)"/>
+                     </span>
+                 </span>
+                 <h4 >Tissue: tissue1    - </h4>
+                 <h4 >Tissue: tissue1    - </h4>
+             </div>
+
+            <div class="metasearch-organism-facet force-scrollbars col-md-3 col-sm-3" > <!-- Omic types -->
+                <h3 class="ng-binding">Specific Search Terms</h3>
+                <ul class="list-unstyled metasearch-facet-values">
+                    <li>
+                        <input type="checkbox"  id="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Proteomics].label"
+                                   ng-checked="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Proteomics].checked == true">
+                        <label for="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Proteomics].label"><span></span></label>
+                        <a href="">
+
+                           <!--ng-class="{'disabled':omics_facets_no.Proteomics==='0'||is_omic_clicked('Proteomics')==='true'}"-->
+                           <!--ng-click="facet_search(facets[index_of_facets.omics_type].id, facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Proteomics].value)"-->
+                        <img
+                            src="img/omics/Proteomics2.png" style="vertical-align: top"/><span>  </span><span
+                            style="font-size:15px; font-weight:bold">Proteomics</span>
+                        <small>
+
+                            ({{facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Proteomics].count||0
+                            | number}})
+                        </small>
+                        </a>
+                    </li>
+                    <li>
+                        <input type="checkbox"  id="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Metabolomics].label"
+                               ng-checked="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Metabolomics].checked == true">
+                        <label for="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Metabolomics].label"><span></span></label>
+                        <a href="">
+                            <!--ng-click="facet_search(facets[index_of_facets.omics_type].id, facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Metabolomics].value)"-->
+                        <img
+                            src="img/omics/Metabolomics2.png" style="vertical-align: top"/><span>  </span><span
+                            style="font-size:15px; font-weight:bold">Metabolomics</span>
+                        <small>
+                            ({{facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Metabolomics].count||0
+                            | number}})
+                        </small>
+                        </a>
+                    </li>
+                    <li>
+                        <input type="checkbox"  id="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Transcriptomics].label"
+                               ng-checked="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Transcriptomics].checked == true">
+                        <label for="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Transcriptomics].label"><span></span></label>
+                        <a href="">
+                           <!--ng-click="facet_search(facets[index_of_facets.omics_type].id, facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Transcriptomics].value)"-->
+                        <img
+                            src="img/omics/Transcriptomics2.png" style="vertical-align: top"/><span>  </span><span
+                            style="font-size:15px; font-weight:bold">Transcriptomics</span>
+                        <small>
+                            ({{facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Transcriptomics].count||0
+                            | number}})
+                        </small>
+                        </a>
+                    </li>
+                    <li>
+                        <input type="checkbox"  id="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Genomics].label"
+                               ng-checked="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Genomics].checked == true">
+                        <label for="facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Genomics].label"><span></span></label>
+                        <a href=""
+                           ng-class="{'disabled':omics_facets_no.Genomics==='0'||is_omic_clicked('Genomics')==='true'}">
+                           <!--ng-click="facet_search(facets[index_of_facets.omics_type].id, facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Genomics].value)"-->
+
+                        <img
+                            src="img/omics/Genomics2.png" style="vertical-align: top"/><span>  </span><span
+                            style="font-size:15px; font-weight:bold">Genomics</span>
+                        <small>
+                            ({{facets[index_of_facets.omics_type].facetValues[omicsfacetsindex.Genomics].count||0
+                            | number}})
+                        </small>
+                        </label>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class = "col-md-6 col-sm-6"><!-- Repository -->
+                <h3 class="ng-binding">Repository</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item">
+                    <input type="text" class="form-control input-block" ng-model="repos_input"
+                           placeholder="Find your repositories">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms'}">
+                        <li ng-repeat="facet_value in facets[index_of_facets.repository].facetValues | filter:repos_input">
+                            <input type="checkbox" id="facet_value.label"
+                                   ng-checked="is_checked(index_of_facets.repository, $index)">
+                                   <!--ng-click="facet_search(facets[index_of_facets.repository].id, facet_value.value)"-->
+                            <label for="facet_value.label"><span></span></label>
+                            <!--ng-click="addOrRemoveSearchTerm(facets[index_of_facets.repository].id, facet_value.value)"-->
+                            <a href=""
+                               ng-click="addOrRemoveSearchTerm(index_of_facets.repository, $index)"
+                               class="metasearch-facet-link"
+                            >{{repositories[facet_value.label]}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>{{repositories}}
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            </div>
+
+            <!--<h2 style="margin-left: -10px; margin-top:20px">Refine by:</h2>-->
+
+            <div class = "row">
+            <div class="col-md-4 col-sm-4"><!-- organisms -->
+                <h3 class="ng-binding">Organism</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item ">
+                    <input type="text" class="form-control" ng-model="species_input"
+                           placeholder="Find your species">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.TAXONOMY].facetValues | filter:species_input">
+                            <input type="checkbox" id="facets[index_of_facets.TAXONOMY].label"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.TAXONOMY].id, facet_value.value)"
+                                   ng-click="facet_search(facets[index_of_facets.TAXONOMY].id, facet_value.value)">
+                            <label for="facets[index_of_facets.TAXONOMY].label"><span></span></label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.TAXONOMY].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4"><!-- Tissue -->
+                <h3 class="ng-binding">Tissue</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item  ">
+                    <input type="text" class="form-control" ng-model="tissue_input"
+                           placeholder="Find your Tissues">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.tissue].facetValues | filter:tissue_input">
+                            <input type="checkbox" id="facets[index_of_facets.tissue].label"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.tissue].id, facet_value.value)"
+                                   ng-click="facet_search(facets[index_of_facets.tissue].id, facet_value.value)">
+                            <label for="facets[index_of_facets.tissue].label"><span></span></label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.tissue].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            <div  class="col-md-4 col-sm-4"><!-- Disease-->
+                <h3 class="ng-binding">Disease</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item ">
+                    <input type="text" class="form-control" ng-model="disease_input"
+                           placeholder="Find your Disease">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.disease].facetValues | filter:disease_input">
+                            <input type="checkbox" id="facets[index_of_facets.disease].label"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.disease].id, facet_value.value)"
+                                   ng-click="facet_search(facets[index_of_facets.disease].id, facet_value.value)">
+                            <label for="facets[index_of_facets.disease].label"><span></span></label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.disease].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            </div> <!--row--->
+
+            <div class = "row">
+            <div class="col-md-4 col-sm-4" ><!-- Modification -->
+                <h3 class="ng-binding">Modification
+                    <small>in Proteomics</small>
+                </h3>
+                <div class="metasearch-organism-facet force-scrollbars list-group-item ">
+                    <input type="text" class="form-control" ng-model="modifi_input"
+                           placeholder="Find your Modifications">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.modification].facetValues | filter:modifi_input">
+                            <input type="checkbox" id="facets[index_of_facets.modification].label"
+                                   ng-click="facet_search(facets[index_of_facets.modification].id, facet_value.value)"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.modification].id, facet_value.value)">
+                            <label for="facets[index_of_facets.modification].label"><span></span></label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.modification].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4"><!-- Instruments & Platforms -->
+                <h3 class="ng-binding">Instrument/Platforms</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item">
+                    <input type="text" class="form-control" ng-model="instr_input"
+                           placeholder="Find your Instruments & Platforms">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.instrument_platform].facetValues | filter:instr_input">
+                            <input type="checkbox" id="facets[index_of_facets.instrument_platform].label"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.instrument_platform].id, facet_value.value)"
+                                   ng-click="facet_search(facets[index_of_facets.instrument_platform].id, facet_value.value)">
+                            <label for="facets[index_of_facets.instrument_platform].label"><span></span>{{facet[1].label}}</label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.instrument_platform].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4"><!-- publication_date -->
+                <h3 class="ng-binding">Publication Date</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item ">
+                    <input type="text" class="form-control" ng-model="publicdate_input"
+                           placeholder="Find by publication year">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.publication_date].facetValues | filter:publicdate_input">
+                            <input type="checkbox" id="facets[index_of_facets.publication_date].label"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.publication_date].id, facet_value.value)"
+                                   ng-click="facet_search(facets[index_of_facets.publication_date].id, facet_value.value)">
+                            <label for="facets[index_of_facets.publication_date].label"><span></span></label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.publication_date].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            </div>
+
+            <div class = "row">
+            <div class="col-md-4 col-sm-4"><!-- technology-->
+                <h3 class="ng-binding">Technology Type</h3>
+
+                <div class="metasearch-organism-facet force-scrollbars list-group-item ">
+                    <input type="text" class="form-control" ng-model="techtype_input"
+                           placeholder="Find your technology type">
+                    <ul class="list-unstyled metasearch-facet-values"
+                        ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms' }">
+                        <li ng-repeat="facet_value in facets[index_of_facets.technology_type].facetValues | filter:techtype_input">
+                            <input type="checkbox" id="facets[index_of_facets.technology_type].label"
+                                   ng-checked="is_facet_applied(facets[index_of_facets.technology_type].id, facet_value.value)"
+                                   ng-click="facet_search(facets[index_of_facets.technology_type].id, facet_value.value)">
+                            <label for="facets[index_of_facets.technology_type].label"><span></span>{{facet[1].label}}</label>
+                            <a href=""
+                               ng-click="facet_search(facets[index_of_facets.technology_type].id, facet_value.value)"
+                               class="metasearch-facet-link">{{facet_value.label}}
+                                <small>({{facet_value.count | number}})</small>
+                            </a>
+                        </li>
+                        <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
+                    </ul>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        <!-- facets column -->
+
+
+        <div ng-show="false" class="col-md-1 col-sm-1 col-xs-1  metasearch-results">
+
+            <!-- paging buttons -->
+
+            <div class="grid_22 ddi-pagination " style="width:100%">
+
+                <div class="col_pager row">
+                    <div class="pr-pager col-md-3 ">
+                        Page
+                        <a href="" ng-click="pagination(1,'default','default','default')"  style="margin-left:5px"
+                           ng-show="current_page>3 && max_page_no>5">{{1+"<<"}}</a>
+                        <!-- <li><a href="" class="btn " ng-repeat="page in pages" ng-click="pagination(page,'default','default','default')" ng-disabled="current_page===page">{{page}}</a></li> -->
+                        <a href="" class="" ng-repeat="page in pages"  style="margin-left:5px"
+                           ng-click="pagination(page,'default','default','default')"
+                           ng-class="{'disabled':current_page===page}">{{page}}</a>
+                        <a href="" ng-click="pagination(max_page_no,'default','default','default')"  style="margin-left:5px"
+                           ng-show="current_page<=max_page_no-3 && max_page_no>5">{{">>"+max_page_no}}</a>
+                    </div>
+                    <div class="pr-page-size col-md-3 ">
+
+                        Page size
+                        <a href="" ng-click="pagination(1,'15','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==15}" ng-show="count>15" >15</a>
+                        <a href="" ng-click="pagination(1,'20','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==20}" ng-hide="count<20" >20</a>
+                        <a href="" ng-click="pagination(1,'50','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==50}" ng-hide="count<50" >50</a>
+                        <a href="" ng-click="pagination(1,'100','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==100}" ng-hide="count<100">100</a>
+
+                    </div>
+                    <div class="pr-stats col-md-3  ">
+                        Showing <span><span ng-show="count &gt; 0">{{(current_page-1)*page_size+1}} -</span> {{current_page*page_size<=count? current_page*page_size : count}}</span>
+                        of <span> {{count}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- paging buttons -->
+            <div class="grid_22 ddi-pagination " style="width:100%">
+                <div class="clearfix   " id="sort-by">
+                        <span  >Sort by:
+                            <a href="" ng-click="pagination(1,'default','id','default')" style="margin-left:5px"
+                               ng-class="{'disabled':sort_field==='id'}">Accession</a>
+                            <a href="" ng-click="pagination(1,'default','relevance','default')"  style="margin-left:5px"
+                               ng-class="{'disabled':sort_field==='relevance'}">Relevance</a>
+                            <a href="" ng-click="pagination(1,'default','publication_date','default')"  style="margin-left:5px"
+                               ng-class="{'disabled':sort_field==='publication_date'}">Publication date</a>
+                            <a href="" ng-click="pagination(1,'default','default','descending')"  style="margin-left:5px"
+                               ng-class="{'disabled':sort_order==='descending'}">
+                                <i class="fa fa-arrow-circle-o-down " style="font-size:19px;"></i>
+                            </a>
+                            <a href="" ng-click="pagination(1,'default','default','ascending')"  style="margin-left:5px"
+                               ng-class="{'disabled':sort_order==='ascending'}">
+                                <i class="fa fa-arrow-circle-o-up" style="font-size:19px"></i>
+                            </a>
+                            </span>
+                </div>
+            </div>
+
+            <div id="search-results" class="grid_22  " style="width:90%">
+                <div id="search-results-items" class="list-group">
+                    <ul class="list-unstyled">
+                        <li class="repeated-item" ng-repeat="dataset in datasets" >
+                            <div class="ddi-card-panel  list-group-item">
+                                <div class="project-widget-accession">
+                                    <img src="img/omics/Proteomics2.png"
+                                         ng-show="dataset.omicsType == 'Proteomics'"/>
+                                    <img src="img/omics/Metabolomics2.png"
+                                         ng-show="dataset.omicsType == 'Metabolomics'"/>
+                                    <img src="img/omics/Genomics2.png"
+                                         ng-show="dataset.omicsType == 'Genomics'"/>
+                                    <img src="img/omics/Transcriptomics2.png"
+                                         ng-show="dataset.omicsType == 'Transcriptomics'"/>
+                                    {{dataset.omicsType}}
+                                    <a href={{"#/dataset/"+dataset.source+"/"+dataset.id}}><span
+                                            ng-bind-html="dataset['title']|browsehighlight:highlight_terms"></span></a>
+                                </div>
+                                <blockquote class="ddi-blockquote">
+                                    <div class="project-widget-paragraph align-justify">
+                                        <!--
+                                            <b>Project description:</b>
+                                        -->
+                                        <span ng-bind-html="dataset['description']|limitTo:450|browsehighlight:highlight_terms"></span>
+                                        {{dataset["description"].length>450?'...':''}}
+                                        <!-- <a href={{"dataset.html#/"+dataset["id"]}}>(More)</a> -->
+                                        <span ng-show="dataset.description===null">Not available</span>
+                                    </div>
+
+                                    <div class="project-widget-paragraph">
+                                    </div>
+                                    <div class="project-widget-paragraph" ng-show="dataset['organisms']">
+                                        ORGANISM(S): <span ng-repeat="organism in dataset['organisms']|limitTo:5"
+                                                        ng-bind-html="organism.name+'&nbsp; &nbsp;' |browsehighlight:highlight_terms"> </span>
+                                        <span ng-show="dataset.organisms.length>5">...</span>
+                                        <span ng-show="dataset.organisms.length===0">Not available</span>
+                                    </div>
+                                    <div class="project-widget-paragraph" ng-show="dataset['tissues']">
+                                        TISSUE(S): <span ng-repeat="tissue in dataset['tissues']|limitTo:5"
+                                                      ng-bind-html="tissue.name+'&nbsp; &nbsp;' |browsehighlight:highlight_terms"></span>
+                                        <span ng-show="dataset.tissues.length>5">...</span>
+                                        <span ng-show="dataset.tissues.length===0">Not available</span>
+                                    </div>
+                                    <div class="project-widget-paragraph" ng-show="dataset['diseases']">
+                                        DISEASE(S): <span ng-repeat="disease in dataset['diseases']|limitTo:5"
+                                                       ng-bind-html="disease.name +'&nbsp; &nbsp;'|browsehighlight:highlight_terms"></span>
+                                        <span ng-show="dataset.diseases.length>5">...</span>
+                                        <span ng-show="dataset.diseases.length===0">Not available</span>
+                                    </div>
+                                    <!--
+                                    <div class="project-widget-paragraph">
+                                        <b>Accession: </b><span
+                                            ng-bind-html="dataset.id |browsehighlight:highlight_terms"></span> (<span
+                                            style=""
+                                            ng-bind-html="repositories[dataset.source]|browsehighlight:highlight_terms"> </span>
+                                        )
+                                    </div>
+                                    -->
+                                </blockquote>
+
+                                <div class="project-widget-paragraph">
+                                    <span ng-show="dataset.publicationDate"><span ng-bind-html="dataset['publicationDate'].substr(0,4)|browsehighlight:highlight_terms"></span>{{"-"+dataset['publicationDate'].substr(4,2)+"-"+dataset['publicationDate'].substr(6,2)}} | </span>
+                                    <a href={{"#dataset/"+dataset.source+"/"+dataset.id}}><span ng-bind-html="dataset.id |browsehighlight:highlight_terms"></span></a> |
+                                    <a href={{database_urls[repositories[dataset.source_title]]}}> <span ng-bind-html="repositories[dataset.source_title]|browsehighlight:highlight_terms"> </span> </a>
+                                </div>
+                                <div class="project-widget-tag"
+                                     ng-hide="dataset.keywords[0] === 'Not available'">
+                                    <a ng-repeat="keyword in dataset.keywords" title={{keyword}}
+                                       class="keywords" href={{"#/search?q="+"\""+keyword+"\""}}>{{keyword}}</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- row -->
+                        <div class="grid_22 ddi-pagination " style="width:100%">
+
+                <div class="col_pager row">
+                    <div class="pr-pager col-md-3 ">
+                        Page
+                        <a href="" ng-click="pagination(1,'default','default','default')"  style="margin-left:5px"
+                           ng-show="current_page>3 && max_page_no>5">{{1+"<<"}}</a>
+                        <!-- <li><a href="" class="btn " ng-repeat="page in pages" ng-click="pagination(page,'default','default','default')" ng-disabled="current_page===page">{{page}}</a></li> -->
+                        <a href="" class="" ng-repeat="page in pages"  style="margin-left:5px"
+                           ng-click="pagination(page,'default','default','default')"
+                           ng-class="{'disabled':current_page===page}">{{page}}</a>
+                        <a href="" ng-click="pagination(max_page_no,'default','default','default')"  style="margin-left:5px"
+                           ng-show="current_page<=max_page_no-3 && max_page_no>5">{{">>"+max_page_no}}</a>
+                    </div>
+                    <div class="pr-page-size col-md-3 ">
+                        Page size
+                        <a href="" ng-click="pagination(1,'15','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==15}" ng-hide="count<15" >15</a>
+                        <a href="" ng-click="pagination(1,'20','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==20}" ng-hide="count<20" >20</a>
+                        <a href="" ng-click="pagination(1,'50','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==50}" ng-hide="count<50" >50</a>
+                        <a href="" ng-click="pagination(1,'100','default','default')"  style="margin-left:5px"
+                           ng-class="{'disabled':page_size==100}" ng-hide="count<100">100</a>
+
+                    </div>
+                    <div class="pr-stats col-md-3 ">
+                        Showing <span><span ng-show="count &gt; 0">{{(current_page-1)*page_size+1}} -</span> {{current_page*page_size<=count? current_page*page_size : count}}</span>
+                        of <span> {{count}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- ResultsListCtrl-->
+    </div>
+    <!-- result show -->
+</div>
+<!-- ResultsListCtrl -->
+
+</div>
+<!--wrapper-->
+
