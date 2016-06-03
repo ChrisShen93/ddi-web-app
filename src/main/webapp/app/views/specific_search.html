@@ -4,7 +4,8 @@
 
 
 
-<div id="content" ng-controller="SpecificSearchCtrl" class="ng-scope ng-cloak"  style="margin: 10px">
+<!--<div id="content" ng-controller="SpecificSearchCtrl" class="ng-scope ng-cloak"  style="margin: 10px">-->
+<div id="content" class="ng-scope ng-cloak"  style="margin: 10px">
 
 
     <div id="count_show" class="ng-cloak" style="height: 30px;">
@@ -32,8 +33,14 @@
                          <img src="img/omics/Proteomics2.png" style="vertical-align: top" ng-click="removeTerm(checkedFacet, checkedTerm)"/>
                      </span>
                  </span>
-                 <h4 >Tissue: tissue1    - </h4>
-                 <h4 >Tissue: tissue1    - </h4>
+                 <!--<h4 >Tissue: tissue1    - </h4>-->
+                 <!--<h4 >Tissue: tissue1    - </h4>-->
+                 <h4 ng-repeat="keyword in keywords">
+                     Repository: {{keyword.keyword}}
+                     <!--<button ng-click="cancelKeyword(this)">cancel</button>-->
+                     <!--<button ng-click="addOrRemoveSearchTerm(keyword.index_in_facets, keyword.index_in_facetValues)">cancel</button>-->
+                 </h4>
+                 <button ng-click="submit()">submit</button>
              </div>
 
             <div class="metasearch-organism-facet force-scrollbars col-md-3 col-sm-3" > <!-- Omic types -->
@@ -115,19 +122,42 @@
                            placeholder="Find your repositories">
                     <ul class="list-unstyled metasearch-facet-values"
                         ng-class="{'metasearch-organism-facet force-scrollbars': facet.label=='Organisms'}">
+                        <!--<li ng-repeat="facet_value in facets[index_of_facets.repository].facetValues | filter:repos_input">-->
+                            <!--&lt;!&ndash;<input type="checkbox" id="facet_value.label" ng-checked="is_checked(index_of_facets.repository, $index)">&ndash;&gt;-->
+                            <!--<input type="checkbox" id="{{facet_value.label}}">-->
+                                   <!--&lt;!&ndash;ng-click="facet_search(facets[index_of_facets.repository].id, facet_value.value)"&ndash;&gt;-->
+                            <!--<label for="{{facet_value.label}}"><span></span></label>-->
+                            <!--&lt;!&ndash;ng-click="addOrRemoveSearchTerm(facets[index_of_facets.repository].id, facet_value.value)"&ndash;&gt;-->
+                            <!--<a href="" ng-click="addOrRemoveSearchTerm(index_of_facets.repository, $index)" class="metasearch-facet-link" >-->
+                                <!--{{repositories[facet_value.label]}}-->
+                                <!--<small>({{facet_value.count | number}})</small>-->
+                            <!--</a>-->
+                        <!--</li>{{repositories}}-->
+
+
                         <li ng-repeat="facet_value in facets[index_of_facets.repository].facetValues | filter:repos_input">
-                            <input type="checkbox" id="facet_value.label"
-                                   ng-checked="is_checked(index_of_facets.repository, $index)">
+                            <!--<input type="checkbox" id="facet_value.label" ng-checked="is_checked(index_of_facets.repository, $index)">-->
+                            <input ng-click="addOrRemoveSearchTerm(index_of_facets.repository, $index)" type="checkbox" id="{{facet_value.label}}">
                                    <!--ng-click="facet_search(facets[index_of_facets.repository].id, facet_value.value)"-->
-                            <label for="facet_value.label"><span></span></label>
+                            <label for="{{facet_value.label}}"><span></span></label>
                             <!--ng-click="addOrRemoveSearchTerm(facets[index_of_facets.repository].id, facet_value.value)"-->
-                            <a href=""
-                               ng-click="addOrRemoveSearchTerm(index_of_facets.repository, $index)"
-                               class="metasearch-facet-link"
-                            >{{repositories[facet_value.label]}}
+                            <a href="" class="metasearch-facet-link">
+                                {{repositories[facet_value.label]}}
                                 <small>({{facet_value.count | number}})</small>
                             </a>
-                        </li>{{repositories}}
+                        </li>
+
+                        <!--<li ng-repeat="facet_value in facets[index_of_facets.repository].facetValues">-->
+                            <!--<label ng-click="addOrRemoveSearchTerm(index_of_facets.repository, $index)">-->
+                                <!--<input ng-model="facet_value.checkedValue" ng-change="record(this)" value="{{repositories[facet_value.label]}}" type="checkbox" style="opacity: 1">{{repositories[facet_value.label]}}<small>({{facet_value.count | number}})</small>-->
+                            <!--</label>-->
+                        <!--</li>-->
+
+                        <!--<li ng-repeat="facet_value in facets[index_of_facets.repository].facetValues" ng-click="addOrRemoveSearchTerm(index_of_facets.repository, $index)">-->
+                            <!--<input type="checkbox" style="opacity: 1">{{repositories[facet_value.label]}}<small>({{facet_value.count | number}})</small>-->
+                        <!--</li>-->
+
+
                         <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
                     </ul>
                 </div>
@@ -156,6 +186,18 @@
                                 <small>({{facet_value.count | number}})</small>
                             </a>
                         </li>
+
+                        <!--<li ng-repeat="facet_value in facets[index_of_facets.TAXONOMY].facetValues | filter:species_input">-->
+                            <!--&lt;!&ndash;<input type="checkbox" id="facet_value.label" ng-checked="is_checked(index_of_facets.repository, $index)">&ndash;&gt;-->
+                            <!--<input ng-click="addOrRemoveSearchTerm(index_of_facets.TAXONOMY, $index)" type="checkbox" id="{{facet_value.label}}">-->
+                            <!--&lt;!&ndash;ng-click="facet_search(facets[index_of_facets.repository].id, facet_value.value)"&ndash;&gt;-->
+                            <!--<label for="{{facet_value.label}}"><span></span></label>-->
+                            <!--&lt;!&ndash;ng-click="addOrRemoveSearchTerm(facets[index_of_facets.repository].id, facet_value.value)"&ndash;&gt;-->
+                            <!--<a href="" class="metasearch-facet-link">-->
+                                <!--{{repositories[facet_value.label]}}-->
+                                <!--<small>({{facet_value.count | number}})</small>-->
+                            <!--</a>-->
+                        <!--</li>-->
                         <!-- <small ng-if="facet.label == 'Organisms' && facet.facetValues.length > 10" class="text-muted">Showing top {{facet.facetValues.length}} organisms</small> -->
                     </ul>
                 </div>

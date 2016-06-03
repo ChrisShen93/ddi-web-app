@@ -35,7 +35,7 @@
           name: 'facebook',
           url: '/auth/facebook',
           authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
-          redirectUri: window.location.origin + '/',
+          redirectUri: 'http://localhost:8000/Tools/omicsdi/',
           requiredUrlParams: ['display', 'scope'],
           scope: ['email'],
           scopeDelimiter: ',',
@@ -566,8 +566,12 @@
             }
 
             var exchangeForTokenUrl = config.baseUrl ? utils.joinUrl(config.baseUrl, defaults.url) : defaults.url;
+            console.log("data: " + data.code);
 
-            return $http.post(exchangeForTokenUrl, data, { withCredentials: config.withCredentials });
+            return $http.post(exchangeForTokenUrl, data, {
+            // return $http.post(exchangeForTokenUrl, {code: data.code}, {
+              headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+              withCredentials: config.withCredentials });
           };
 
           Oauth2.buildQueryString = function() {

@@ -2,33 +2,28 @@
  * Created by chris on 16-5-3.
  */
 
-angular.module('ddiApp').controller('LoginCtrl', ['$scope', '$location', 'LoginSer', '$auth', '$window', function ($scope, $location, LoginSer, $auth, $window) {
-    // var code = $location.$$absUrl.substring($location.$$absUrl.indexOf("code") + 5);
-    // console.log(code);
-    console.log($location.absUrl());
-    // console.log($location.search());//此方法获取code必须开启html5模式
+angular.module('ddiApp').controller('LoginCtrl', ['$scope', '$rootScope', '$location', '$auth', function ($scope, $rootScope, $location, $auth) {
 
     $scope.authenticate = function (provider) {
-        console.log("this is authenticate");
-
-        LoginSer.authenticate(provider);
-
-        // $auth.authenticate(provider)
-        //     .then(function (response) {
-        //         console.log("this is $auth.authenticate");
-        //         console.log("response:");
-        //         console.log(response);
-        //         // $location.path('/Tools/omicsdi');
-        //     });
-
-        // var Oauth = {};
-        // Oauth.authenticate = function (provider) {
-        //     var provider
-        // }
+        $auth.authenticate(provider)
+            .then(function(data) {
+                console.log('You have successfully signed in with ' + provider + '!');
+                console.log(data);
+                $rootScope.userId = data.data.id + "@" + provider;
+                $rootScope.userName = data.data.name;
+                $rootScope.accessToken = data.data.access_token;
+                $location.path('/');
+            })
+            .catch(function(error) {
+                if (error.error) {
+                    // Popup error - invalid redirect_uri, pressed cancel button, etc.
+                    console.error(error.error);
+                } else if (error.data) {
+                    // HTTP response error from server
+                    console.error(error.data.message, error.status);
+                } else {
+                    console.error(error);
+                }
+            });
     };
-
-    $scope.loginFB = function () {
-        LoginSer.getCode();
-    }
-
 }]);

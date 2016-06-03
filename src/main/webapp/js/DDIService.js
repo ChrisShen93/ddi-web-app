@@ -45,7 +45,7 @@ angular.module('ddiApp').factory('WordRetriever', function ($http, $q, $timeout)
  * Service for passing data between controllers.
  angular.module('ddiApp').service('results', ['_', '$http', '$location', '$window', function (_, $http, $location, $window) {
  */
-angular.module('ddiApp').service('results', ['_','$http', '$location', '$window', function (_, $http, $location, $window) {
+angular.module('ddiApp').service('results', ['_','$http', '$location', '$window', '$rootScope', function (_, $http, $location, $window, $rootScope) {
 
     /**
      * Service initialization.
@@ -92,8 +92,8 @@ angular.module('ddiApp').service('results', ['_','$http', '$location', '$window'
         '&sortfield={SORTFIELD}' +
         '&order={ORDER}' +
         '&start={START}' +
-        '&userId=190828274629964' +
-        '&accessToken=EAAQMj4IZAenwBAL6qcBZCALBezgJpoifkJ6yd07yGbDSC95j1v3s8ScRz0UPaqZC0lI5XlPsK1ttyT1EDbNzHZCML4n28BHWy6cLe86RrlC8ycahZCYW5xSnZA8HSZAZBfAUT0tvsTZBeLPllYp0q0y17R2vR7NCgWZCZANqCWIOcoHSgZDZD',
+        '&userId={USERID}' +
+        '&accessToken={ACCESSTOKEN}',
 
         'proxy': search_config.ddi_base_url +
         '/api/internal/ebeye?url={EBEYE_URL}',
@@ -162,7 +162,14 @@ angular.module('ddiApp').service('results', ['_','$http', '$location', '$window'
                 newSortField = ""
             };
 
-            var ebeye_url = query_urls.ebeye_search.replace('{QUERY}', query).replace('{START}', start).replace('{PAGESIZE}', page_size).replace('{SORTFIELD}', newSortField).replace('{ORDER}', sort_order);
+            var ebeye_url = query_urls.ebeye_search
+                .replace('{QUERY}', query)
+                .replace('{START}', start)
+                .replace('{PAGESIZE}', page_size)
+                .replace('{SORTFIELD}', newSortField)
+                .replace('{ORDER}', sort_order)
+                .replace('{USERID}', $rootScope.userId)
+                .replace('{ACCESSTOKEN}', $rootScope.accessToken);
             console.log(ebeye_url);
             //    var url = query_urls.proxy.replace('{EBEYE_URL}', encodeURIComponent(ebeye_url));
             //    return url;

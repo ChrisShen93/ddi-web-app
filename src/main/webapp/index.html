@@ -111,10 +111,10 @@
         <div id="login" ng-controller="LoginCtrl">
             <div id="LoginButton">
                 <i id="facebook" class="fa fa-facebook-square fa-2x" aria-hidden="true" ng-click="authenticate('facebook')"></i>
-                <i id="twitter" class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
-                <i id="google" class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
-                <i id="linkedin" class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
-                <i id="github" class="fa fa-github-square fa-2x" aria-hidden="true" ng-click="authenticate('github')"></i>
+                <!--<i id="twitter" class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>-->
+                <!--<i id="google" class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>-->
+                <!--<i id="linkedin" class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>-->
+                <!--<i id="github" class="fa fa-github-square fa-2x" aria-hidden="true" ng-click="authenticate('github')"></i>-->
             </div>
             <!--<button ng-click="authenticate('facebook')">Sign in with Facebook</button>-->
             <!--<button ng-click="authenticate('google')">Sign in with google</button>-->
@@ -134,6 +134,7 @@
                 <li class=" last" id="about-prider-menu"><a title="Databases"
                                                             href="#/databases">Databases</a>
                 </li>
+                <li><a href="#/specificSearch">SpecificSearch</a></li>
                 <!-- If you need to include functional (as opposed to purely navigational) links in your local menu,
                 add them here, and give them a class of "functional". Remember: you'll need a class of "last" for
                 whichever one will show up last...
@@ -359,9 +360,10 @@
 <script src="js/DDICheckCtl.js"></script>
 <!--
 -->
-<script src="js/DDILoginService.js"></script>
 <script src="js/DDILoginCtrl.js"></script>
 <!--<script src="js/loginFB.js"></script>-->
+
+<script src="js/DDISpecificSearchCtl.js"></script>
 
 <!--<script>-->
     <!--$(function () {-->
@@ -389,6 +391,9 @@
                         <!--$("#fbLogin").text(user_name);-->
 
                     <!--}-->
+                <!--},-->
+                <!--error: function () {-->
+                    <!--alert("someting is wrong");-->
                 <!--}-->
             <!--});-->
         <!--}-->

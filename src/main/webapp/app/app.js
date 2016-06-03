@@ -88,16 +88,22 @@ ddiApp.config(['$routeProvider', '$authProvider', function($routeProvider, $auth
     when('/home', { templateUrl: 'app/views/home.html', controller: 'MainContentCtrl' }).
     //when('/search', { templateUrl: 'app/views/search.html', controller: 'MainContentCtrl' }).
     when('/search?:searchstring', { templateUrl: 'app/views/browse.html', controller: 'MainContentCtrl' }).
+    when('/specificSearch', { templateUrl: 'app/views/specific_search.html', controller:'SpecificSearchCtrl'}).
     //when('/search/:search', { templateUrl: 'app/views/search.html', controller: 'MainContentCtrl' }).
     when('/dataset/:domain/:acc', { templateUrl: 'app/views/dataset.html', controller: 'MainContentCtrl' }).
     when('/check', {templateUrl: 'app/views/check.html', controller: 'MainContentCtrl'}).
     otherwise({ templateUrl: 'app/views/home.html', controller: 'MainContentCtrl' });
 
-    $authProvider.github({
-        clientId: '2a2e68940ee81396ace5',
-        redirectUri: window.location.origin + '/Tools/omicsdi',
-        url: 'http://localhost:9091/signin/github'
+    $authProvider.facebook({
+        clientId: '1573396536286663',
+        // redirectUri: 'http://localhost:8000/Tools/omicsdi/',
+        url: 'http://localhost:9091/signin/facebook'
     });
+    // $authProvider.github({
+    //     clientId: '2a2e68940ee81396ace5',
+    //     redirectUri: window.location.origin + '/Tools/omicsdi',
+    //     url: 'http://localhost:9091/signin/github'
+    // });
 
     // $locationProvider.html5Mode(true);
 }]);
