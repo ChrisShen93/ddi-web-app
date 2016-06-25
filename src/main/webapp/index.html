@@ -109,13 +109,14 @@
         <!-- /local-search -->
 
         <div id="login" ng-controller="LoginCtrl">
-            <div id="LoginButton">
+            <div id="LoginButton" ng-if="!userName">
                 <i id="facebook" class="fa fa-facebook-square fa-2x" aria-hidden="true" ng-click="authenticate('facebook')"></i>
                 <!--<i id="twitter" class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>-->
                 <!--<i id="google" class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>-->
                 <!--<i id="linkedin" class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>-->
                 <!--<i id="github" class="fa fa-github-square fa-2x" aria-hidden="true" ng-click="authenticate('github')"></i>-->
             </div>
+            <div ng-if="userName">{{userName}}</div>
             <!--<button ng-click="authenticate('facebook')">Sign in with Facebook</button>-->
             <!--<button ng-click="authenticate('google')">Sign in with google</button>-->
             <!--<div ng-click="getCode()">getCode</div>-->
@@ -339,6 +340,7 @@
 </script>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/underscore/underscore-min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
@@ -423,6 +425,14 @@
         <!--});-->
     <!--})-->
 <!--</script>-->
+
+<script>
+    $(function() {
+        var userName_from_cookie = $.cookie("userName");
+        console.log("userName from cookie: " + userName_from_cookie);
+        $("#LoginButton").html(userName_from_cookie);
+    });
+</script>
 
 
 <script src="js/DDIGetTweets.js"></script>

@@ -9,6 +9,11 @@ angular.module('ddiApp').controller('LoginCtrl', ['$scope', '$rootScope', '$loca
             .then(function(data) {
                 console.log('You have successfully signed in with ' + provider + '!');
                 console.log(data);
+
+                $.cookie("userId", data.data.id + "@" + provider);
+                $.cookie("userName", data.data.name);
+                $.cookie("accessToken", data.data.access_token);
+
                 $rootScope.userId = data.data.id + "@" + provider;
                 $rootScope.userName = data.data.name;
                 $rootScope.accessToken = data.data.access_token;
